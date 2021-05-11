@@ -1,0 +1,88 @@
+
+-- create database
+CREATE DATABASE IF NOT EXISTS `books_db`;
+
+-- create database
+CREATE DATABASE IF NOT EXISTS `notification_db`;
+
+
+CREATE USER 'test'@'%' IDENTIFIED BY 'testing';
+GRANT ALL TO 'test'@'%';
+
+
+USE `books_db`;
+
+DROP TABLE IF EXISTS `CITY`;
+CREATE TABLE `CITY`(
+    `id`   varchar(255) NOT NULL,
+    `name` varchar(255) NOT NULL,
+    `state` varchar(255),
+     PRIMARY KEY (`id`)
+);
+
+INSERT INTO `CITY` VALUES ('1111111-1111-1111-1111-111111111111','Belgrade','Serbia');
+
+DROP TABLE IF EXISTS `BOOK_SHOP`;
+CREATE TABLE `BOOK_SHOP`(
+    `id`   varchar(255) NOT NULL ,
+    `name` varchar(255),
+    `city_id` varchar(255),
+     PRIMARY KEY (`id`),
+     CONSTRAINT `fk_city_id` FOREIGN KEY (`city_id`) REFERENCES `CITY` (`id`)
+);
+
+INSERT INTO `BOOK_SHOP` VALUES ('2222222-22222-2222-2222-111111111111','Laguna','1111111-1111-1111-1111-111111111111');
+INSERT INTO `BOOK_SHOP` VALUES ('2222222-22222-2222-2222-222222222222','Plato','1111111-1111-1111-1111-111111111111');
+
+
+DROP TABLE IF EXISTS `BOOK`;
+CREATE TABLE `BOOK`
+(
+    `id`   varchar(255) NOT NULL,
+    `name` varchar(255) NOT NULL,
+    `author` varchar(255),
+    `book_shop_id` varchar(255),
+    `price`  double DEFAULT NULL,
+     PRIMARY KEY (`id`),
+     CONSTRAINT `fk_library_id` FOREIGN KEY (`book_shop_id`) REFERENCES `BOOK_SHOP` (`id`)
+);
+
+INSERT INTO `BOOK` VALUES ('333333333-3333-3333-3333-111111111111','War And Peace','Tolstoy','2222222-22222-2222-2222-111111111111',3500.35);
+INSERT INTO `BOOK` VALUES ('333333333-3333-3333-3333-222222222222','Great Expectations','Dickens','2222222-22222-2222-2222-111111111111',1000.43);
+INSERT INTO `BOOK` VALUES ('333333333-3333-3333-3333-333333333333','Lost Illusions',' Balzac','2222222-22222-2222-2222-222222222222',980.50);
+INSERT INTO `BOOK` VALUES ('333333333-3333-3333-3333-444444444444','Vanity Fair','  Thackeray','2222222-22222-2222-2222-222222222222',1100.80);
+
+USE `notification_db`;
+
+DROP TABLE IF EXISTS `EMAIL`;
+CREATE TABLE `EMAIL`
+(
+    `id`   varchar(255) NOT NULL,
+    `to` varchar(255) NOT NULL,
+    `bcc` varchar(255),
+    `subject` varchar(255),
+    PRIMARY KEY (`id`)
+);
+
+INSERT INTO `EMAIL` VALUES ('11111-2222-1111-2222-111111111111','to_email@google.com','bsc_email@google.com','Restaurant bill');
+INSERT INTO `EMAIL` VALUES ('11111-2222-1111-2222-222222222222','to_email2@google.com','bsc_email2@google.com','Hotel bill');
+
+
+DROP TABLE IF EXISTS `ACCOUNT`;
+CREATE TABLE `ACCOUNT`
+(
+    `id`   varchar(255) NOT NULL,
+    `name`   varchar(255) NOT NULL,
+    `total` DOUBLE NOT NULL,
+    `tax` DOUBLE,
+    `date` DATE,
+    `email_id`varchar(255) NOT NULL,
+    PRIMARY KEY (`id`),
+    CONSTRAINT `fk_account_id` FOREIGN KEY (`email_id`) REFERENCES `EMAIL` (`id`)
+);
+
+
+INSERT INTO `ACCOUNT` VALUES ('22222-2222-1111-2222-111111111111','guest2 guest2', 123.45,12.31,'2021-01-03','11111-2222-1111-2222-111111111111');
+INSERT INTO `ACCOUNT` VALUES ('22222-2222-1111-2222-222222222222','guest1 guest1', 234.56,13.43,'2021-04-23','11111-2222-1111-2222-222222222222');
+
+

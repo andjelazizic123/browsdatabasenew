@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+    <changeSet author="angela.zizic" id="changelog-1.0-1">
+        <validCheckSum> 8:1db659a97fa92a63e3fe7cddca7ab4b3</validCheckSum>
+         <createTable tableName="CONNECTION">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="name" type="VARCHAR(50)"></column>
+            <column name="host_name" type="VARCHAR(50)"></column>
+            <column name="port" type="VARCHAR(10)"></column>
+            <column name="database_name" type="VARCHAR(50)"></column>
+            <column name="user_name" type="VARCHAR(20)"></column>
+            <column name="password" type="VARCHAR(20)"></column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

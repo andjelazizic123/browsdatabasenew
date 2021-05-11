@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysqlconnectiondb
+    volumes:
+      - ./seeds:/seed
+      - ./seeds/mysql/mysql-dump.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - 3307:3306
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+    networks:
+      - browsdatabase
+networks:
+  browsdatabase:
+    driver: bridge
